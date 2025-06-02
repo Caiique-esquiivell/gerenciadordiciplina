@@ -1,15 +1,16 @@
-package GerenciadordeHorario;
+package gerenciadordisciplinas;
 
 public class Disciplina {
     private String nome;
     private String codigo;
     private String professor;
+    private int creditos;
 
-
-    public Disciplina(String nome, String codigo, String professor) {
+    public Disciplina(String nome, String codigo, String professor, int creditos) {
         this.nome = nome;
         this.codigo = codigo;
         this.professor = professor;
+        this.creditos = creditos;
     }
 
     public String getNome() {
@@ -24,11 +25,7 @@ public class Disciplina {
         return professor;
     }
 
-
-
-    public void exibirDetalhes() {
-        System.out.println("Disciplina: " + nome + " | Código: " + codigo +
-                " | Professor: " + professor);
+    public int getCreditos() {
+        return creditos;
     }
 }
-
