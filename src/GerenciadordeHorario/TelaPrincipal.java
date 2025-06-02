@@ -49,20 +49,32 @@ public class TelaPrincipal extends JFrame {
 
         JOptionPane.showMessageDialog(this, sucesso ? "Adicionada com sucesso!" : "Conflito de horário.");
     }
+private void visualizarGrade() {
+    Map<Disciplina, Horario> gradeMap = usuario.getGrade().getGrade();
 
-    private void visualizarGrade() {
-        StringBuilder sb = new StringBuilder();
-        for (var entry : usuario.getGrade().getGrade().entrySet()) {
-            Disciplina d = entry.getKey();
-            Horario h = entry.getValue();
-            sb.append(d.getCodigo()).append(" - ").append(d.getNome())
-              .append(" | ").append(h.getDiaSemana())
-              .append(" ").append(h.getHoraInicio()).append("-").append(h.getHoraFim())
-              .append(" | Sala: ").append(h.getSala())
-              .append("\n");
-        }
-        JOptionPane.showMessageDialog(this, sb.toString());
+    if (gradeMap.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Nenhuma disciplina cadastrada na grade.");
+        return;
     }
+
+    StringBuilder sb = new StringBuilder();
+    sb.append("------ GRADE DE HORÁRIOS ------\n\n");
+
+    for (Map.Entry<Disciplina, Horario> entry : gradeMap.entrySet()) {
+        Disciplina d = entry.getKey();
+        Horario h = entry.getValue();
+
+        sb.append("Código: ").append(d.getCodigo()).append("\n")
+          .append("Nome: ").append(d.getNome()).append("\n")
+          .append("Professor: ").append(d.getProfessor()).append("\n")
+          .append("Horário: ").append(h.getDiaSemana()).append(" | ")
+          .append(h.getHoraInicio()).append(" - ").append(h.getHoraFim()).append("\n")
+          .append("Sala: ").append(h.getSala()).append("\n")
+          .append("------------------------------\n");
+    }
+
+    JOptionPane.showMessageDialog(this, sb.toString(), "Grade Horária", JOptionPane.INFORMATION_MESSAGE);
+}
 
     private void removerDisciplina() {
         String codigo = JOptionPane.showInputDialog("Código da disciplina a remover:");
