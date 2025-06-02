@@ -1,4 +1,4 @@
-package GerenciadordeHorario;
+package gerenciadordisciplinas;
 
 public class Usuario {
     private String nome;
@@ -13,5 +13,13 @@ public class Usuario {
 
     public GradeHoraria getGrade() {
         return grade;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getMatricula() {
+        return matricula;
     }
 }
