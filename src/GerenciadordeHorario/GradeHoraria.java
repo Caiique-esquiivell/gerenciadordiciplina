@@ -18,11 +18,16 @@ public class GradeHoraria {
     }
 
     public boolean removerDisciplinaPorCodigo(String codigo) {
+        Disciplina alvo = null;
         for (Disciplina d : grade.keySet()) {
             if (d.getCodigo().equalsIgnoreCase(codigo)) {
-                grade.remove(d);
-                return true;
+                alvo = d;
+                break;
             }
+        }
+        if (alvo != null) {
+            grade.remove(alvo);
+            return true;
         }
         return false;
     }
@@ -31,4 +36,3 @@ public class GradeHoraria {
         return grade;
     }
 }
-
