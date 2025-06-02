@@ -58,6 +58,7 @@ public class TelaPrincipal extends JFrame {
             sb.append(d.getCodigo()).append(" - ").append(d.getNome())
               .append(" | ").append(h.getDiaSemana())
               .append(" ").append(h.getHoraInicio()).append("-").append(h.getHoraFim())
+              .append(" | Sala: ").append(h.getSala())
               .append("\n");
         }
         JOptionPane.showMessageDialog(this, sb.toString());
