@@ -1,4 +1,4 @@
-package GerenciadordeHorario;
+package gerenciadordisciplinas;
 
 public class Horario {
     private String diaSemana;
@@ -30,6 +30,7 @@ public class Horario {
     }
 
     public boolean conflitaCom(Horario outro) {
-        return this.diaSemana.equals(outro.diaSemana) && this.horaInicio.equals(outro.horaInicio);
+        if (!diaSemana.equalsIgnoreCase(outro.diaSemana)) return false;
+        return horaInicio.compareTo(outro.horaFim) < 0 && horaFim.compareTo(outro.horaInicio) > 0;
     }
 }
