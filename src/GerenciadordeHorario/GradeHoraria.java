@@ -1,32 +1,22 @@
-package GerenciadordeHorario;
-
 import java.util.*;
 
 public class GradeHoraria {
-    private Map<Disciplina, Horario> grade;
+    private Map<Disciplina, Horario> grade = new HashMap<>();
 
-    public GradeHoraria() {
-        this.grade = new HashMap<>();
+    public void adicionar(Disciplina d, Horario h) {
+        grade.put(d, h);
     }
 
-    public boolean adicionarDisciplina(Disciplina disciplina, Horario horario) {
-        for (Horario h : grade.values()) {
-            if (h.conflitaCom(horario)) return false;
-        }
-        grade.put(disciplina, horario);
-        return true;
-    }
-
-    public boolean removerDisciplinaPorCodigo(String codigo) {
-        Disciplina alvo = null;
+    public boolean removerPorCodigo(String codigo) {
+        Disciplina disciplinaParaRemover = null;
         for (Disciplina d : grade.keySet()) {
-            if (d.getCodigo().equalsIgnoreCase(codigo)) {
-                alvo = d;
+            if (d.getCodigo().equals(codigo)) {
+                disciplinaParaRemover = d;
                 break;
             }
         }
-        if (alvo != null) {
-            grade.remove(alvo);
+        if (disciplinaParaRemover != null) {
+            grade.remove(disciplinaParaRemover);
             return true;
         }
         return false;
