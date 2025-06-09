@@ -11,6 +11,8 @@ public class TelaPrincipal extends JFrame {
     public TelaPrincipal() {
         usuario = new Usuario("Aluno", "123456");
 
+        SwingUtilities.invokeLater(() -> new TelaLogin());
+
         setTitle("Gerenciador de Disciplinas");
         setSize(400, 300);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
