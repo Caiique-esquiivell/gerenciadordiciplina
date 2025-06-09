@@ -1,38 +1,29 @@
-package GerenciadordeHorario;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.Map;
 
 public class TelaPrincipal extends JFrame {
     private Usuario usuario;
 
-    public TelaPrincipal() {
-        usuario = new Usuario("Aluno", "123456");
-
-        SwingUtilities.invokeLater(() -> new TelaLogin());
-
+    public TelaPrincipal(Usuario usuario) {
+        this.usuario = usuario;
         setTitle("Gerenciador de Disciplinas");
         setSize(400, 300);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        JPanel painel = new JPanel();
-        painel.setLayout(new GridLayout(4, 1));
+        setLayout(new FlowLayout());
 
         JButton btnAdicionar = new JButton("Adicionar Disciplina");
-        btnAdicionar.addActionListener(e -> adicionarDisciplina());
-        painel.add(btnAdicionar);
-
-        JButton btnVisualizar = new JButton("Visualizar Grade");
-        btnVisualizar.addActionListener(e -> visualizarGrade());
-        painel.add(btnVisualizar);
-
         JButton btnRemover = new JButton("Remover Disciplina");
-        btnRemover.addActionListener(e -> removerDisciplina());
-        painel.add(btnRemover);
+        JButton btnVisualizar = new JButton("Visualizar Grade");
 
-        add(painel);
+        btnAdicionar.addActionListener(e -> adicionarDisciplina());
+        btnRemover.addActionListener(e -> removerDisciplina());
+        btnVisualizar.addActionListener(e -> visualizarGrade());
+
+        add(btnAdicionar);
+        add(btnRemover);
+        add(btnVisualizar);
         setVisible(true);
     }
 
@@ -40,17 +31,24 @@ public class TelaPrincipal extends JFrame {
         String nome = JOptionPane.showInputDialog("Nome da disciplina:");
         String codigo = JOptionPane.showInputDialog("Código:");
         String professor = JOptionPane.showInputDialog("Professor:");
-        double creditos = Double.parseDouble(JOptionPane.showInputDialog("Créditos:"));
         String dia = JOptionPane.showInputDialog("Dia da semana:");
-        String inicio = JOptionPane.showInputDialog("Hora início (HH:mm):");
-        String fim = JOptionPane.showInputDialog("Hora fim (HH:mm):");
+        String inicio = JOptionPane.showInputDialog("Hora início:");
+        String fim = JOptionPane.showInputDialog("Hora fim:");
         String sala = JOptionPane.showInputDialog("Sala:");
 
-        Disciplina d = new Disciplina(nome, codigo, professor, creditos);
+        Disciplina d = new Disciplina(nome, codigo, professor);
         Horario h = new Horario(dia, inicio, fim, sala);
-        boolean sucesso = usuario.getGrade().adicionarDisciplina(d, h);
+        usuario.adicionarDisciplina(d, h);
+    }
 
-        JOptionPane.showMessageDialog(this, sucesso ? "Adicionada com sucesso!" : "Conflito de horário.");
+    private void removerDisciplina() {
+        String codigo = JOptionPane.showInputDialog("Digite o código da disciplina a remover:");
+        boolean removido = usuario.removerDisciplina(codigo);
+        if (removido) {
+            JOptionPane.showMessageDialog(this, "Disciplina removida.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Disciplina não encontrada.");
+        }
     }
 
     private void visualizarGrade() {
@@ -61,33 +59,20 @@ public class TelaPrincipal extends JFrame {
             return;
         }
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("------ GRADE DE HORÁRIOS ------\n\n");
-
+        StringBuilder sb = new StringBuilder("------ GRADE DE HORÁRIOS ------\n\n");
         for (Map.Entry<Disciplina, Horario> entry : gradeMap.entrySet()) {
             Disciplina d = entry.getKey();
             Horario h = entry.getValue();
 
             sb.append("Código: ").append(d.getCodigo()).append("\n")
-                    .append("Nome: ").append(d.getNome()).append("\n")
-                    .append("Professor: ").append(d.getProfessor()).append("\n")
-                    .append("Credito: ").append(d.getCreditos()).append("\n")
-                    .append("Horário: ").append(h.getDiaSemana()).append(" | ")
-                    .append(h.getHoraInicio()).append(" - ").append(h.getHoraFim()).append("\n")
-                    .append("Sala: ").append(h.getSala()).append("\n")
-                    .append("------------------------------\n");
+              .append("Nome: ").append(d.getNome()).append("\n")
+              .append("Professor: ").append(d.getProfessor()).append("\n")
+              .append("Horário: ").append(h.getDiaSemana()).append(" | ")
+              .append(h.getHoraInicio()).append(" - ").append(h.getHoraFim()).append("\n")
+              .append("Sala: ").append(h.getSala()).append("\n")
+              .append("------------------------------\n");
         }
 
         JOptionPane.showMessageDialog(this, sb.toString(), "Grade Horária", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    private void removerDisciplina() {
-        String codigo = JOptionPane.showInputDialog("Código da disciplina a remover:");
-        boolean sucesso = usuario.getGrade().removerDisciplinaPorCodigo(codigo);
-        JOptionPane.showMessageDialog(this, sucesso ? "Removida com sucesso!" : "Disciplina não encontrada.");
-    }
-
-    public static void main(String[] args) {
-        new TelaPrincipal();
     }
 }
