@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class TelaLogin extends JFrame {
     private JTextField campoUsuario;
@@ -9,9 +8,9 @@ public class TelaLogin extends JFrame {
 
     public TelaLogin() {
         setTitle("Login do Sistema");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 180);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new GridLayout(3, 2, 10, 10));
 
         campoUsuario = new JTextField();
@@ -22,23 +21,21 @@ public class TelaLogin extends JFrame {
         add(campoUsuario);
         add(new JLabel("Senha:"));
         add(campoSenha);
-        add(new JLabel()); // espaço vazio
+        add(new JLabel(""));
         add(botaoEntrar);
 
         botaoEntrar.addActionListener(e -> validarLogin());
-
         setVisible(true);
     }
 
     private void validarLogin() {
-        String usuario = campoUsuario.getText();
+        String user = campoUsuario.getText();
         String senha = new String(campoSenha.getPassword());
 
-        // Usuário e senha fixos para exemplo
-        if (usuario.equals("admin") && senha.equals("1234")) {
-            Usuario user = new Usuario("Admin"); // cria o usuário real
-            new TelaPrincipal(user); // chama a tela principal com o usuário autenticado
-            dispose(); // fecha a tela de login
+        if (user.equals("admin") && senha.equals("1234")) {
+            Usuario usuario = new Usuario(user);
+            new TelaPrincipal(usuario);
+            dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Usuário ou senha incorretos!");
         }
