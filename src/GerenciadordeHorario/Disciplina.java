@@ -1,31 +1,30 @@
-package GerenciadordeHorario;
+import java.util.Objects;
 
 public class Disciplina {
     private String nome;
     private String codigo;
     private String professor;
-    private double creditos;
 
-    public Disciplina(String nome, String codigo, String professor, double creditos) {
+    public Disciplina(String nome, String codigo, String professor) {
         this.nome = nome;
         this.codigo = codigo;
         this.professor = professor;
-        this.creditos = creditos;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNome() { return nome; }
+    public String getCodigo() { return codigo; }
+    public String getProfessor() { return professor; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Disciplina)) return false;
+        Disciplina d = (Disciplina) o;
+        return Objects.equals(codigo, d.codigo);
     }
 
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public String getProfessor() {
-        return professor;
-    }
-
-    public double getCreditos() {
-        return creditos;
+    @Override
+    public int hashCode() {
+        return Objects.hash(codigo);
     }
 }
