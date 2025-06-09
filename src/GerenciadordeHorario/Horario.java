@@ -1,4 +1,4 @@
-package gerenciadordisciplinas;
+package GerenciadordeHorario;
 
 public class Horario {
     private String diaSemana;
