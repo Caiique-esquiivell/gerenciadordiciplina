@@ -1,4 +1,4 @@
-package gerenciadordisciplinas;
+package GerenciadordeHorario;
 
 import java.util.*;
 
