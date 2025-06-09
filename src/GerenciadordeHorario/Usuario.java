@@ -1,25 +1,21 @@
-package GerenciadordeHorario;
-
 public class Usuario {
     private String nome;
-    private String matricula;
     private GradeHoraria grade;
 
-    public Usuario(String nome, String matricula) {
+    public Usuario(String nome) {
         this.nome = nome;
-        this.matricula = matricula;
         this.grade = new GradeHoraria();
+    }
+
+    public void adicionarDisciplina(Disciplina d, Horario h) {
+        grade.adicionar(d, h);
+    }
+
+    public boolean removerDisciplina(String codigo) {
+        return grade.removerPorCodigo(codigo);
     }
 
     public GradeHoraria getGrade() {
         return grade;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getMatricula() {
-        return matricula;
     }
 }
