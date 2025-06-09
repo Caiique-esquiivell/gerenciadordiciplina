@@ -1,5 +1,3 @@
-package GerenciadordeHorario;
-
 public class Horario {
     private String diaSemana;
     private String horaInicio;
@@ -13,24 +11,8 @@ public class Horario {
         this.sala = sala;
     }
 
-    public String getDiaSemana() {
-        return diaSemana;
-    }
-
-    public String getHoraInicio() {
-        return horaInicio;
-    }
-
-    public String getHoraFim() {
-        return horaFim;
-    }
-
-    public String getSala() {
-        return sala;
-    }
-
-    public boolean conflitaCom(Horario outro) {
-        if (!diaSemana.equalsIgnoreCase(outro.diaSemana)) return false;
-        return horaInicio.compareTo(outro.horaFim) < 0 && horaFim.compareTo(outro.horaInicio) > 0;
-    }
+    public String getDiaSemana() { return diaSemana; }
+    public String getHoraInicio() { return horaInicio; }
+    public String getHoraFim() { return horaFim; }
+    public String getSala() { return sala; }
 }
